@@ -38,13 +38,12 @@ public class InputStringDecoder {
     private Action getAttachmentAction() {
         return text -> {
             String path = text.split("'")[1];
-            String[] fileNameParts = path.split("[\\\\/]");
-            String fileName = fileNameParts[fileNameParts.length - 1];
             try {
-                FileInputStream fileInputStream = new FileInputStream(new File(path));
+                File file = new File(path);
+                FileInputStream fileInputStream = new FileInputStream(file);
                 byte[] bytes = fileInputStream.readAllBytes();
                 return FileChatMessage.builder()
-                        .fileName(new StringEntry(fileName))
+                        .fileName(new StringEntry(file.getName()))
                         .bytes(new RawBytesEntry(bytes))
                         .build();
             } catch (IOException e) {
