@@ -14,14 +14,17 @@ import java.io.IOException;
 public class InputStringDecoder {
 
     public Action decode(String text) {
-        if (text.startsWith("/register ")) {
+        if (text.matches("^/register [^\\s]*$")) {
             return getRegisterAction();
         }
-        if (text.startsWith("/attach ")) {
+        if (text.matches("^/attach '.*'$")) {
             return getAttachmentAction();
         }
-        if (text.startsWith("/exit")) {
+        if (text.matches("/exit")) {
             return getResetConnectionAction();
+        }
+        if (text.startsWith("/")) {
+            throw new IllegalArgumentException("Command is wrong");
         }
         return getSimpleMessageAction();
     }

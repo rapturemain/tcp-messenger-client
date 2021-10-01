@@ -62,12 +62,15 @@ public class TcpMessengerClientApplication {
 
     private boolean handleUserInput(DataOutputStream dos, BufferedReader br, BufferedWriter bw) throws IOException {
         String line = br.readLine();
+
         Message<?> message = decoder.decode(line).run(line);
         encoderDecoder.encode(message, dos);
+
         if (message instanceof ConnectionResetMessage) {
             writeLine(bw, "Bye");
             return false;
         }
+
         return true;
     }
 
