@@ -127,6 +127,6 @@ public class MessageHandler {
         return LocalDateTime.ofInstant(
                 Instant.ofEpochMilli(timestampEntry.getTimestamp()),
                 ZoneId.systemDefault()
-        ).toString();
+        ).toString().replaceAll("T", " ");
     }
 }
