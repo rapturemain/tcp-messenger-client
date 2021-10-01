@@ -4,6 +4,7 @@ package org.rapturemain.tcpmessengerclient;
 import lombok.SneakyThrows;
 import org.rapturemain.tcpmessengermessageframework.message.MessageEncoderDecoderImpl;
 import org.rapturemain.tcpmessengermessageframework.message.messages.*;
+import org.rapturemain.tcpmessengermessageframework.message.messages.system.ConnectionResetMessage;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -15,7 +16,7 @@ public class TcpMessengerClientApplication {
     private volatile boolean terminating = false;
 
     private final MessageEncoderDecoderImpl encoderDecoder = new MessageEncoderDecoderImpl();
-    private final InputStringDecoder decoder = new InputStringDecoder();
+    private final UserInputDecoder decoder = new UserInputDecoder();
 
     public static void main(String[] args) {
         new TcpMessengerClientApplication().start();

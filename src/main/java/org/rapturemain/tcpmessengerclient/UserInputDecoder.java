@@ -2,16 +2,16 @@ package org.rapturemain.tcpmessengerclient;
 
 import org.rapturemain.tcpmessengermessageframework.message.base.RawBytesEntry;
 import org.rapturemain.tcpmessengermessageframework.message.base.StringEntry;
-import org.rapturemain.tcpmessengermessageframework.message.messages.ConnectionResetMessage;
-import org.rapturemain.tcpmessengermessageframework.message.messages.FileChatMessage;
-import org.rapturemain.tcpmessengermessageframework.message.messages.SimpleChatMessage;
-import org.rapturemain.tcpmessengermessageframework.message.messages.request.RegistrationRequestMessage;
+import org.rapturemain.tcpmessengermessageframework.message.messages.chat.FileChatMessage;
+import org.rapturemain.tcpmessengermessageframework.message.messages.chat.SimpleChatMessage;
+import org.rapturemain.tcpmessengermessageframework.message.messages.system.ConnectionResetMessage;
+import org.rapturemain.tcpmessengermessageframework.message.messages.system.RegistrationRequestMessage;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class InputStringDecoder {
+public class UserInputDecoder {
 
     public Action decode(String text) {
         if (text.matches("^/register [^\\s]*$")) {

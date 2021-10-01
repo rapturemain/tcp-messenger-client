@@ -5,12 +5,10 @@ import lombok.Setter;
 import org.rapturemain.tcpmessengermessageframework.message.MessageEncoderDecoder;
 import org.rapturemain.tcpmessengermessageframework.message.base.TimestampEntry;
 import org.rapturemain.tcpmessengermessageframework.message.messages.*;
-import org.rapturemain.tcpmessengermessageframework.message.messages.request.PingRequest;
-import org.rapturemain.tcpmessengermessageframework.message.messages.response.PingResponse;
-import org.rapturemain.tcpmessengermessageframework.message.messages.response.RegistrationResponseMessage;
-import org.rapturemain.tcpmessengermessageframework.message.messages.system.UserConnectedMessage;
-import org.rapturemain.tcpmessengermessageframework.message.messages.system.UserDisconnectedMessage;
-import org.rapturemain.tcpmessengermessageframework.message.messages.system.UserRegisteredMessage;
+import org.rapturemain.tcpmessengermessageframework.message.messages.chat.ChatMessage;
+import org.rapturemain.tcpmessengermessageframework.message.messages.chat.FileChatMessage;
+import org.rapturemain.tcpmessengermessageframework.message.messages.chat.SimpleChatMessage;
+import org.rapturemain.tcpmessengermessageframework.message.messages.system.*;
 
 import java.io.*;
 import java.time.Instant;
