@@ -62,7 +62,7 @@ public class MessageHandler {
             ));
             writer.newLine();
 
-            FileOutputStream fileOutputStream = new FileOutputStream(((FileChatMessage) message).getFileName().getString() + UUID.randomUUID().toString().substring(0, 10));
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             byte[] bytes = ((FileChatMessage) message).getBytes().getBytes();
             fileOutputStream.write(bytes);
             fileOutputStream.flush();
