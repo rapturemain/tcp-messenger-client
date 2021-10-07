@@ -64,6 +64,10 @@ public class TcpMessengerClientApplication {
     private boolean handleUserInput(DataOutputStream dos, BufferedReader br, BufferedWriter bw) throws IOException {
         String line = br.readLine();
 
+        if (terminating) {
+            return false;
+        }
+
         if (line.matches("/raw( [0-9A-Fa-f]{2})+")) {
             writeRawBytes(line, dos);
             return true;
@@ -84,7 +88,7 @@ public class TcpMessengerClientApplication {
         InputHandler inputHandler = new InputHandler(encoderDecoder, dis, dos, bw);
         Consumer<Exception> onException = (e) -> {
             try {
-                writeLine(bw, "Connection reset by server. Terminating");
+                writeLine(bw, "<Client Message> Connection reset by server. Terminating");
                 writeLine(bw, e.getMessage());
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -93,6 +97,8 @@ public class TcpMessengerClientApplication {
         };
         inputHandler.setOnEOF(onException);
         inputHandler.setOnIOE(onException);
+
+        inputHandler.setOnConnectionReset(() -> terminating = true);
 
         inputHandler.start();
 

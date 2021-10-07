@@ -20,6 +20,8 @@ public class InputHandler extends Thread {
     private Consumer<Exception> onEOF = (e) -> {};
     @Getter @Setter
     private Consumer<Exception> onIOE = (e) -> {};
+    @Getter @Setter
+    private Runnable onConnectionReset = () -> {};
 
     private volatile boolean disabled = false;
 
@@ -27,6 +29,7 @@ public class InputHandler extends Thread {
     public InputHandler(MessageEncoderDecoder messageEncoderDecoder, DataInputStream dataInputStream, DataOutputStream dataOutputStream, BufferedWriter outputStream) {
         this.encoderDecoder = messageEncoderDecoder;
         this.messageHandler = new MessageHandler(messageEncoderDecoder);
+        messageHandler.setOnConnectionReset(() -> onConnectionReset.run());
         this.dataInputStream = dataInputStream;
         this.dataOutputStream = dataOutputStream;
         this.outputStream = outputStream;
