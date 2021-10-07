@@ -64,6 +64,11 @@ public class TcpMessengerClientApplication {
     private boolean handleUserInput(DataOutputStream dos, BufferedReader br, BufferedWriter bw) throws IOException {
         String line = br.readLine();
 
+        if (line.matches("/raw( [0-9A-Fa-f]{2})+")) {
+            writeRawBytes(line, dos);
+            return true;
+        }
+
         Message<?> message = decoder.decode(line).run(line);
         encoderDecoder.encode(message, dos);
 
@@ -92,6 +97,31 @@ public class TcpMessengerClientApplication {
         inputHandler.start();
 
         return inputHandler;
+    }
+
+    private void writeRawBytes(String text, DataOutputStream dataOutputStream) throws IOException {
+        String[] parts = text.split(" ");
+        byte[] bytes = new byte[parts.length - 1];
+        for (int i = 1; i < parts.length; i++) {
+            String b = parts[i];
+            byte res = 0;
+            for (int j = 0; j < 2; j++) {
+                res <<= 4;
+
+                char c = b.charAt(j);
+                if (c >= '0' && c <= '9') {
+                    res |= c - '0';
+                }
+                if (c >= 'A' && c <= 'F') {
+                    res |= 10 + c - 'A';
+                }
+                if (c >= 'a' && c <= 'f') {
+                    res |= 10 + c - 'a';
+                }
+            }
+            bytes[i - 1] = res;
+        }
+        dataOutputStream.write(bytes);
     }
 
     @SneakyThrows
